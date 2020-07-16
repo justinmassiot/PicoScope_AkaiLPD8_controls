@@ -136,24 +136,24 @@ midiInHandler(hInput, midiMsg, wMsg)
         If (byteData2 = 64) {
           Send +a ; Channel.#0.Offset.Reset
         }
-        Else If (byteData2 > Rotary5) {
+        Else If (byteData2 > Rotary1) {
           Send +1 ; Channel.#0.Offset.Decrement
         }
-        Else If (byteData2 < Rotary5) {
+        Else If (byteData2 < Rotary1) {
           Send +q ; Channel.#0.Offset.Increment
         }
-        Rotary5 := byteData2
+        Rotary1 := byteData2
       case 2: ; rotary 2
         If (byteData2 = 64) {
           Send +s ; Channel.#1.Offset.Reset
         }
-        Else If (byteData2 > Rotary6) {
+        Else If (byteData2 > Rotary2) {
           Send +2 ; Channel.#1.Offset.Decrement
         }
-        Else If (byteData2 < Rotary6) {
+        Else If (byteData2 < Rotary2) {
           Send +w ; Channel.#1.Offset.Increment
         }
-        Rotary6 := byteData2
+        Rotary2 := byteData2
       case 4: ; rotary 4
         If (byteData2//11 > Rotary4) {
           Send m ; Trigger.PreTrigger.Decrement
@@ -179,13 +179,13 @@ midiInHandler(hInput, midiMsg, wMsg)
         }
         Rotary6 := byteData2//12 ; 10 steps
       case 7: ; rotary 7
-        If (byteData2//3 > Rotary6) {
+        If (byteData2//3 > Rotary7) {
           Send v ; Trigger.Threshold.Increment
         }
-        Else If (byteData2//3 < Rotary6) {
+        Else If (byteData2//3 < Rotary7) {
           Send b ; Trigger.Threshold.Decrement
         }
-        Rotary6 := byteData2//3 ; 42 steps
+        Rotary7 := byteData2//3 ; 42 steps
       case 8: ; rotary 8
         If (byteData2//3 > Rotary8) {
           Send {Up} ; CollectionTime.Previous
