@@ -1,5 +1,3 @@
-; Source: http://ihme.org/~orbik/midi4ahk/
-
 
 ; "#defines"
 DeviceID := 0
@@ -127,4 +125,4 @@ midiInHandler(hInput, midiMsg, wMsg)
 }
 
 
-;Esc::GoSub, sub_exit
+Esc::GoSub, sub_exit
