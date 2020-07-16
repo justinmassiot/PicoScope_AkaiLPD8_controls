@@ -119,20 +119,20 @@ midiInHandler(hInput, midiMsg, wMsg)
   ; https://www.autohotkey.com/docs/commands/Send.htm
   If (msgType = 1) { ; touch
     switch byteData1 {
-      case 0: Send a ; Channel.#0.Coupling.Next
+      case 0: Send a ; Channel.#0.Coupling.Next  /  Upper Left touchpad
       case 1: Send s ; Channel.#1.Coupling.Next
       case 2: Send x ; Trigger.TriggerSource.Next
       ;case 3
-      case 4: Send +z ; Channel.#0.Enabled
+      case 4: Send +z ; Channel.#0.Enabled  /  Lower Left touchpad
       case 5: Send +x ; Channel.#1.Enabled
       case 6: Send z ; Trigger.TriggerMode.Next
-      case 7: Send {Space} ; Run
+      case 7: Send {Space} ; Run  /  Lower Right touchpad
     }
   }
   
   Else If (msgType = 3) { ; rotary
     switch byteData1 {
-      case 1: ; rotary 1
+      case 1: ; rotary 1  ------------------------------  Upper Left rotary knob
         If (byteData2 = 64) {
           Send +a ; Channel.#0.Offset.Reset
         }
@@ -154,7 +154,7 @@ midiInHandler(hInput, midiMsg, wMsg)
           Send +w ; Channel.#1.Offset.Increment
         }
         Rotary2 := byteData2
-      case 4: ; rotary 4
+      case 4: ; rotary 4  -----------------------------  Upper Right rotary knob
         If (byteData2//11 > Rotary4) {
           Send m ; Trigger.PreTrigger.Decrement
         }
@@ -162,7 +162,7 @@ midiInHandler(hInput, midiMsg, wMsg)
           Send n ; Trigger.PreTrigger.Increment
         }
         Rotary4 := byteData2//11 ; 11 steps
-      case 5: ; rotary 5
+      case 5: ; rotary 5  ------------------------------  Lower Left rotary knob
         If (byteData2//12 > Rotary5) {
           Send 1 ; Channel.#0.Range.Previous
         }
@@ -186,7 +186,7 @@ midiInHandler(hInput, midiMsg, wMsg)
           Send b ; Trigger.Threshold.Decrement
         }
         Rotary7 := byteData2//3 ; 42 steps
-      case 8: ; rotary 8
+      case 8: ; rotary 8  -----------------------------  Lower Right rotary knob
         If (byteData2//3 > Rotary8) {
           Send {Up} ; CollectionTime.Previous
         }
