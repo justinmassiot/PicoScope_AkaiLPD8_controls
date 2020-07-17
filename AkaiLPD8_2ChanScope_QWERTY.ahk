@@ -1,5 +1,5 @@
 
-; "#defines"
+; parameters are to be set here
 DeviceID := 0
 CALLBACK_WINDOW := 0x10000
 
@@ -118,6 +118,10 @@ midiInHandler(hInput, midiMsg, wMsg)
   
   ; https://www.autohotkey.com/docs/commands/Send.htm
   If (msgType = 1) { ; touch
+    ; get the focus on the PicoScope application before sending any keystroke
+    if WinExist("ahk_exe PicoScope.exe") and !WinActive("ahk_exe PicoScope.exe") ; doesn't work with `WinActive(PicoScope)`
+      WinActivate, ahk_exe PicoScope.exe
+    
     switch byteData1 {
       case 0: Send a ; Channel.#0.Coupling.Next  /  Upper Left touchpad
       case 1: Send s ; Channel.#1.Coupling.Next
@@ -131,6 +135,10 @@ midiInHandler(hInput, midiMsg, wMsg)
   }
   
   Else If (msgType = 3) { ; rotary
+    ; get the focus on the PicoScope application before sending any keystroke
+    if WinExist("ahk_exe PicoScope.exe") and !WinActive("ahk_exe PicoScope.exe") ; doesn't work with `WinActive(PicoScope)`
+      WinActivate, ahk_exe PicoScope.exe
+    
     switch byteData1 {
       case 1: ; rotary 1  ------------------------------  Upper Left rotary knob
         If (byteData2 = 64) {
