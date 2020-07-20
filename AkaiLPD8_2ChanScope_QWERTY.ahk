@@ -92,7 +92,7 @@ midiInHandler(hInput, midiMsg, wMsg)
 {
   Static Rotary1 := 0
   Static Rotary2 := 0
-  ;Static Rotary3 := 0
+  Static Rotary3 := 0
   Static Rotary4 := 0
   Static Rotary5 := 0
   Static Rotary6 := 0
@@ -126,7 +126,7 @@ midiInHandler(hInput, midiMsg, wMsg)
       case 0: Send a ; Channel.#0.Coupling.Next  /  Upper Left touchpad
       case 1: Send s ; Channel.#1.Coupling.Next
       case 2: Send x ; Trigger.TriggerSource.Next
-      ;case 3
+      ;case 3  /  Upper Right touchpad
       case 4: Send +z ; Channel.#0.Enabled  /  Lower Left touchpad
       case 5: Send +x ; Channel.#1.Enabled
       case 6: Send z ; Trigger.TriggerMode.Next
@@ -162,6 +162,14 @@ midiInHandler(hInput, midiMsg, wMsg)
           Send +w ; Channel.#1.Offset.Increment
         }
         Rotary2 := byteData2
+      case 3: ; rotary 3
+        If (byteData2//3 > Rotary3) {
+          Send v ; Trigger.Threshold.Increment
+        }
+        Else If (byteData2//3 < Rotary3) {
+          Send b ; Trigger.Threshold.Decrement
+        }
+        Rotary3 := byteData2//3 ; 42 steps
       case 4: ; rotary 4  -----------------------------  Upper Right rotary knob
         If (byteData2//12 > Rotary4) {
           Send m ; Trigger.PreTrigger.Decrement
@@ -186,14 +194,7 @@ midiInHandler(hInput, midiMsg, wMsg)
           Send w ; Channel.#1.Range.Next
         }
         Rotary6 := byteData2//12 ; 11 steps
-      case 7: ; rotary 7
-        If (byteData2//3 > Rotary7) {
-          Send v ; Trigger.Threshold.Increment
-        }
-        Else If (byteData2//3 < Rotary7) {
-          Send b ; Trigger.Threshold.Decrement
-        }
-        Rotary7 := byteData2//3 ; 42 steps
+      ;case 7
       case 8: ; rotary 8  -----------------------------  Lower Right rotary knob
         If (byteData2//3 > Rotary8) {
           Send {Up} ; CollectionTime.Previous
