@@ -163,13 +163,13 @@ midiInHandler(hInput, midiMsg, wMsg)
         }
         Rotary2 := byteData2
       case 4: ; rotary 4  -----------------------------  Upper Right rotary knob
-        If (byteData2//11 > Rotary4) {
+        If (byteData2//12 > Rotary4) {
           Send m ; Trigger.PreTrigger.Decrement
         }
-        Else If (byteData2//11 < Rotary4) {
+        Else If (byteData2//12 < Rotary4) {
           Send n ; Trigger.PreTrigger.Increment
         }
-        Rotary4 := byteData2//11 ; 11 steps
+        Rotary4 := byteData2//12 ; 11 steps
       case 5: ; rotary 5  ------------------------------  Lower Left rotary knob
         If (byteData2//12 > Rotary5) {
           Send 1 ; Channel.#0.Range.Previous
@@ -177,7 +177,7 @@ midiInHandler(hInput, midiMsg, wMsg)
         Else If (byteData2//12 < Rotary5) {
           Send q ; Channel.#0.Range.Next
         }
-        Rotary5 := byteData2//12 ; 10 steps
+        Rotary5 := byteData2//12 ; 11 steps
       case 6: ; rotary 6
         If (byteData2//12 > Rotary6) {
           Send 2 ; Channel.#1.Range.Previous
@@ -185,7 +185,7 @@ midiInHandler(hInput, midiMsg, wMsg)
         Else If (byteData2//12 < Rotary6) {
           Send w ; Channel.#1.Range.Next
         }
-        Rotary6 := byteData2//12 ; 10 steps
+        Rotary6 := byteData2//12 ; 11 steps
       case 7: ; rotary 7
         If (byteData2//3 > Rotary7) {
           Send v ; Trigger.Threshold.Increment
